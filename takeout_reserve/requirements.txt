@@ -1,0 +1,4 @@
+django
+requests
+line-bot-sdk
+Pillow

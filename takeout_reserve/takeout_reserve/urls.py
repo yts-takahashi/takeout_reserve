@@ -3,8 +3,10 @@ import json
 import traceback
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.http import HttpResponse
+from django.conf import settings
+from django.conf.urls.static import static
 
 from django.views.decorators.csrf import csrf_exempt
 
@@ -42,7 +44,7 @@ def callback(request):
                     )
                     actions.append(ma)
                 cm = CarouselColumn(
-                        thumbnail_image_url='https://1.bp.blogspot.com/-D2I7Z7-HLGU/Xlyf7OYUi8I/AAAAAAABXq4/jZ0035aDGiE5dP3WiYhlSqhhMgGy8p7zACNcBGAsYHQ/s1600/no_image_square.jpg',
+                        thumbnail_image_url=f'https://0b99d7160270.ngrok.io{category.image.url}',
                         title=category.name,
                         text='description1',
                         actions=actions
@@ -100,5 +102,5 @@ def output_order_details(order_details):
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('callback/', callback)
-]
+    path('callback/', callback),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
